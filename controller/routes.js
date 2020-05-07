@@ -5,13 +5,13 @@ router.get("/", (req, res) => {
   res.render("index", { title: "Index" });
 });
 
-router.get("/results", async (req, res) => {
+router.get("/results", (req, res) => {
   // const indeedList = await scraper.indeedScraper(
-  //   req.params.jobTitle,
-  //   req.params.location
+  //   req.query.jobTitle,
+  //   req.query.location
   // );
 
-  res.render("resultsPage", {
+  res.render("results", {
     title: "Results for: (interpolate query string here)",
   });
 });
