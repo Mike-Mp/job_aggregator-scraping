@@ -5,7 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 var puppeteer = require("puppeteer");
 
 exports.indeedScraper = function _callee(jobTitle, location) {
-  var browser, page;
+  var browser, page, list;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -62,10 +62,25 @@ exports.indeedScraper = function _callee(jobTitle, location) {
           return regeneratorRuntime.awrap(page.waitFor(2000));
 
         case 28:
-          // close browser, return arrays
-          browser.close();
+          _context.next = 30;
+          return regeneratorRuntime.awrap(page.evaluate(function () {
+            var titlesList = Array.from(document.querySelectorAll(".title")).map(function (title) {
+              return title.innerText.trim();
+            });
+            var companiesList = Array.from(document.querySelectorAll(".company")).map(function (comp) {
+              return comp.innerText.trim();
+            });
+            return [titlesList, companiesList];
+          }));
 
-        case 29:
+        case 30:
+          list = _context.sent;
+          console.log(list); // close browser, return arrays
+
+          browser.close();
+          return _context.abrupt("return", list);
+
+        case 34:
         case "end":
           return _context.stop();
       }

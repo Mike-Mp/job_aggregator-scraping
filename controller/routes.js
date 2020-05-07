@@ -6,10 +6,12 @@ router.get("/", (req, res) => {
 });
 
 router.get("/results", async (req, res) => {
-  const indeedList = await scraper.indeedScraper(
+  const { titleList, companyList } = await scraper.indeedScraper(
     req.query.jobTitle,
     req.query.location
   );
+
+  console.log("indeedList", indeedList);
 
   res.render("results", {
     title: "Results for: (interpolate query string here)",

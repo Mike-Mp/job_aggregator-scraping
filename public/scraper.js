@@ -25,8 +25,23 @@ exports.indeedScraper = async (jobTitle, location) => {
 
   await page.waitFor(2000);
 
+  let list = await page.evaluate(() => {
+    let titlesList = Array.from(
+      document.querySelectorAll(".title")
+    ).map((title) => title.innerText.trim());
+    let companiesList = Array.from(
+      document.querySelectorAll(".company")
+    ).map((comp) => comp.innerText.trim());
+
+    return [titlesList, companiesList];
+  });
+
+  console.log(list);
+
   // close browser, return arrays
   browser.close();
+
+  return list;
 };
 
 // exports.stackoverflowScraper = async (jobTitle, location) => {};
