@@ -9,13 +9,26 @@ router.get("/", function (req, res) {
     title: "Index"
   });
 });
-router.get("/results", function (req, res) {
-  // const indeedList = await scraper.indeedScraper(
-  //   req.query.jobTitle,
-  //   req.query.location
-  // );
-  res.render("results", {
-    title: "Results for: (interpolate query string here)"
+router.get("/results", function _callee(req, res) {
+  var indeedList;
+  return regeneratorRuntime.async(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return regeneratorRuntime.awrap(scraper.indeedScraper(req.query.jobTitle, req.query.location));
+
+        case 2:
+          indeedList = _context.sent;
+          res.render("results", {
+            title: "Results for: (interpolate query string here)"
+          });
+
+        case 4:
+        case "end":
+          return _context.stop();
+      }
+    }
   });
 });
 module.exports = router;

@@ -16,14 +16,14 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "public")));
 
 // sessions
-app.use(
-  session({
-    cookie: { maxAge: 5000 },
-    secret: "woot",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+// app.use(
+//   session({
+//     cookie: { maxAge: 5000 },
+//     secret: "woot",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
 
 // routes
 app.use("/", routes);

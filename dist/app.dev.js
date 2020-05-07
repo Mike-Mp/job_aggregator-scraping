@@ -20,15 +20,15 @@ app.use(express.urlencoded({
 app.set("view engine", "pug"); // static files
 
 app.use(express["static"](path.join(__dirname, "public"))); // sessions
-
-app.use(session({
-  cookie: {
-    maxAge: 5000
-  },
-  secret: "woot",
-  resave: false,
-  saveUninitialized: false
-})); // routes
+// app.use(
+//   session({
+//     cookie: { maxAge: 5000 },
+//     secret: "woot",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+// routes
 
 app.use("/", routes); // error handling
 // start app

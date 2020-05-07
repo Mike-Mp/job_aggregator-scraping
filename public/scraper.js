@@ -1,33 +1,32 @@
-// const puppeteer = require("puppeteer");
-// console.log("accessed scraper file");
-// exports.indeedScraper = async (jobTitle, location) => {
-//   const browser = await puppeteer.launch();
-//   const page = await browser.newPage();
+const puppeteer = require("puppeteer");
 
-//   await page.goto("https://www.indeed.com/");
+exports.indeedScraper = async (jobTitle, location) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-//   await page.waitForSelector("#text-input-what");
-//   await page.waitForSelector("#text-input-where");
+  await page.goto("https://www.indeed.com");
 
-//   console.log(page.url(), typeof page.url());
+  await page.waitForSelector("#text-input-what");
+  await page.waitForSelector("#text-input-where");
 
-//   const jobInput = await page.$("#text-input-what");
-//   const locationInput = await page.$("#text-input-where");
-//   const submitButton = await page.$(".icl-Button");
+  console.log(page.url(), typeof page.url());
 
-//   await page.focus(jobInput);
-//   await page.keyboard.type(jobTitle);
+  await page.focus("#text-input-what");
+  await page.keyboard.type(jobTitle);
 
-//   await page.focus(locationInput);
-//   await page.keyboard.type(location);
+  await page.focus("#text-input-where");
+  await page.keyboard.type(location);
 
-//   await page.click(submitButton);
+  await page.click(".icl-Button");
 
-//   await page.waitFor(2000);
+  await page.waitFor(2000);
 
-//   console.log(page.url(), typeof page.url());
-//   // close browser, return arrays
-//   browser.close();
-// };
+  console.log(page.url(), typeof page.url());
+
+  await page.waitFor(2000);
+
+  // close browser, return arrays
+  browser.close();
+};
 
 // exports.stackoverflowScraper = async (jobTitle, location) => {};
