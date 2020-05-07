@@ -1,11 +1,9 @@
 "use strict";
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var puppeteer = require("puppeteer");
 
 exports.indeedScraper = function _callee(jobTitle, location) {
-  var browser, page, list;
+  var browser, page, list, result;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -32,37 +30,31 @@ exports.indeedScraper = function _callee(jobTitle, location) {
           return regeneratorRuntime.awrap(page.waitForSelector("#text-input-where"));
 
         case 12:
-          console.log(page.url(), _typeof(page.url()));
-          _context.next = 15;
+          _context.next = 14;
           return regeneratorRuntime.awrap(page.focus("#text-input-what"));
 
-        case 15:
-          _context.next = 17;
+        case 14:
+          _context.next = 16;
           return regeneratorRuntime.awrap(page.keyboard.type(jobTitle));
 
-        case 17:
-          _context.next = 19;
+        case 16:
+          _context.next = 18;
           return regeneratorRuntime.awrap(page.focus("#text-input-where"));
 
-        case 19:
-          _context.next = 21;
+        case 18:
+          _context.next = 20;
           return regeneratorRuntime.awrap(page.keyboard.type(location));
 
-        case 21:
-          _context.next = 23;
+        case 20:
+          _context.next = 22;
           return regeneratorRuntime.awrap(page.click(".icl-Button"));
 
-        case 23:
-          _context.next = 25;
+        case 22:
+          _context.next = 24;
           return regeneratorRuntime.awrap(page.waitFor(2000));
 
-        case 25:
-          console.log(page.url(), _typeof(page.url()));
-          _context.next = 28;
-          return regeneratorRuntime.awrap(page.waitFor(2000));
-
-        case 28:
-          _context.next = 30;
+        case 24:
+          _context.next = 26;
           return regeneratorRuntime.awrap(page.evaluate(function () {
             var titlesList = Array.from(document.querySelectorAll(".title")).map(function (title) {
               return title.innerText.trim();
@@ -73,14 +65,17 @@ exports.indeedScraper = function _callee(jobTitle, location) {
             return [titlesList, companiesList];
           }));
 
-        case 30:
+        case 26:
           list = _context.sent;
-          console.log(list); // close browser, return arrays
-
+          // close browser, return arrays / objects ?
           browser.close();
-          return _context.abrupt("return", list);
+          result = {};
+          list[0].forEach(function (key, index) {
+            return result[key] = list[1][index];
+          });
+          return _context.abrupt("return", result);
 
-        case 34:
+        case 31:
         case "end":
           return _context.stop();
       }

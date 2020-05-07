@@ -9,8 +9,6 @@ exports.indeedScraper = async (jobTitle, location) => {
   await page.waitForSelector("#text-input-what");
   await page.waitForSelector("#text-input-where");
 
-  console.log(page.url(), typeof page.url());
-
   await page.focus("#text-input-what");
   await page.keyboard.type(jobTitle);
 
@@ -18,10 +16,6 @@ exports.indeedScraper = async (jobTitle, location) => {
   await page.keyboard.type(location);
 
   await page.click(".icl-Button");
-
-  await page.waitFor(2000);
-
-  console.log(page.url(), typeof page.url());
 
   await page.waitFor(2000);
 
@@ -36,12 +30,14 @@ exports.indeedScraper = async (jobTitle, location) => {
     return [titlesList, companiesList];
   });
 
-  console.log(list);
-
-  // close browser, return arrays
+  // close browser, return arrays / objects ?
   browser.close();
 
-  return list;
+  const result = {};
+
+  list[0].forEach((key, index) => (result[key] = list[1][index]));
+
+  return result;
 };
 
 // exports.stackoverflowScraper = async (jobTitle, location) => {};

@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/results", async (req, res) => {
-  const { titleList, companyList } = await scraper.indeedScraper(
+  const indeedList = await scraper.indeedScraper(
     req.query.jobTitle,
     req.query.location
   );
