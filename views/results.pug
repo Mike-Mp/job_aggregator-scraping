@@ -1,5 +1,13 @@
 extends layout
-
+include ./mixins/_indeedCard
+include ./mixins/_stackCard
 block content
   a(href="/") Index
-  p results page
+  div(class="indeed")
+    if indeedResult.length !== 0
+      each indeedInfo in indeedResult
+        +indeedCard(indeedInfo)
+  div(class="stackoverflow")
+    if stackoverflowResult.length !== 0
+      each stackInfo in stackoverflowResult
+        +stackCard(stackInfo)
