@@ -154,7 +154,10 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
             var imagesList = Array.from(document.querySelectorAll(".grid img")).map(function (item) {
               return item.getAttribute("src");
             });
-            return [titleList, companyList, imagesList];
+            var hrefList = Array.from(document.querySelectorAll(".fc-black-800 a")).map(function (item) {
+              return item.getAttribute("href");
+            });
+            return [titleList, companyList, imagesList, hrefList];
           }));
 
         case 27:
@@ -172,6 +175,7 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
             obj.job = list[0][i];
             obj.company = list[1][i];
             obj.imageSrc = list[2][i];
+            obj.jobHref = list[3][i];
             stackoverflowResult.push(obj);
           });
           console.log(stackoverflowResult, "length: ".concat(stackoverflowResult.length));

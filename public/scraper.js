@@ -78,7 +78,10 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
     let imagesList = Array.from(
       document.querySelectorAll(".grid img")
     ).map((item) => item.getAttribute("src"));
-    return [titleList, companyList, imagesList];
+    let hrefList = Array.from(
+      document.querySelectorAll(".fc-black-800 a")
+    ).map((item) => item.getAttribute("href"));
+    return [titleList, companyList, imagesList, hrefList];
   });
 
   console.log(page.url());
@@ -96,6 +99,7 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
     obj.job = list[0][i];
     obj.company = list[1][i];
     obj.imageSrc = list[2][i];
+    obj.jobHref = list[3][i];
     stackoverflowResult.push(obj);
   });
 
