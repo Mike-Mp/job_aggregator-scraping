@@ -41,7 +41,7 @@ exports.indeedScraper = async (jobTitle, location) => {
     const obj = {};
     obj.job = list[0][index];
     obj.company = list[1][index];
-    result.push(obj);
+    indeedResult.push(obj);
   });
 
   return { pageUrl, indeedResult };
@@ -51,7 +51,9 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  page.goto("https://stackoverflow.com/jobs");
+  console.log(jobTitle, location);
+
+  await page.goto("https://stackoverflow.com/jobs");
 
   await page.waitForSelector("#q");
   await page.waitForSelector("#l");
@@ -62,22 +64,42 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
   await page.focus("#l");
   await page.keyboard.type(location);
 
-  await page.click(".s-btn s-btn__md");
+  await page.click(".js-search-btn");
+
+  await page.waitFor(2000);
 
   let list = await page.evaluate(() => {
     let titleList = Array.from(
-      document.querySelectorAll(".s-link stretched-link")
+      document.querySelectorAll(".fc-black-800 a")
     ).map((link) => link.getAttribute("title"));
     let companyList = Array.from(
-      document.querySelectorAll(".fc-black-700 fs-body1")
-    );
-
-    return [titleList, companyList];
+      document.querySelectorAll(".fc-black-700 span")
+    ).map((item) => item.innerText.trim());
+    let imagesList = Array.from(
+      document.querySelectorAll(".grid img")
+    ).map((item) => item.getAttribute("src"));
+    return [titleList, companyList, imagesList];
   });
 
-  console.log(list);
+  console.log(page.url());
+
+  const stackoverflowPageUrl = page.url();
 
   // close browser, return values
 
   await browser.close();
+
+  const stackoverflowResult = [];
+
+  list[0].forEach((key, i) => {
+    const obj = {};
+    obj.job = list[0][i];
+    obj.company = list[1][i];
+    obj.imageSrc = list[2][i];
+    stackoverflowResult.push(obj);
+  });
+
+  console.log(stackoverflowResult, `length: ${stackoverflowResult.length}`);
+
+  return { stackoverflowPageUrl, stackoverflowResult };
 };

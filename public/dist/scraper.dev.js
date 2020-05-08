@@ -75,7 +75,7 @@ exports.indeedScraper = function _callee(jobTitle, location) {
             var obj = {};
             obj.job = list[0][index];
             obj.company = list[1][index];
-            result.push(obj);
+            indeedResult.push(obj);
           });
           return _context.abrupt("return", {
             pageUrl: pageUrl,
@@ -91,7 +91,7 @@ exports.indeedScraper = function _callee(jobTitle, location) {
 };
 
 exports.stackoverflowScraper = function _callee2(jobTitle, location) {
-  var browser, page, list;
+  var browser, page, list, stackoverflowPageUrl, stackoverflowResult;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -106,52 +106,81 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
 
         case 5:
           page = _context2.sent;
-          page["goto"]("https://stackoverflow.com/jobs");
+          console.log(jobTitle, location);
           _context2.next = 9;
-          return regeneratorRuntime.awrap(page.waitForSelector("#q"));
+          return regeneratorRuntime.awrap(page["goto"]("https://stackoverflow.com/jobs"));
 
         case 9:
           _context2.next = 11;
-          return regeneratorRuntime.awrap(page.waitForSelector("#l"));
+          return regeneratorRuntime.awrap(page.waitForSelector("#q"));
 
         case 11:
           _context2.next = 13;
-          return regeneratorRuntime.awrap(page.focus("#q"));
+          return regeneratorRuntime.awrap(page.waitForSelector("#l"));
 
         case 13:
           _context2.next = 15;
-          return regeneratorRuntime.awrap(page.keyboard.type(jobTitle));
+          return regeneratorRuntime.awrap(page.focus("#q"));
 
         case 15:
           _context2.next = 17;
-          return regeneratorRuntime.awrap(page.focus("#l"));
+          return regeneratorRuntime.awrap(page.keyboard.type(jobTitle));
 
         case 17:
           _context2.next = 19;
-          return regeneratorRuntime.awrap(page.keyboard.type(location));
+          return regeneratorRuntime.awrap(page.focus("#l"));
 
         case 19:
           _context2.next = 21;
-          return regeneratorRuntime.awrap(page.click(".s-btn s-btn__md"));
+          return regeneratorRuntime.awrap(page.keyboard.type(location));
 
         case 21:
           _context2.next = 23;
-          return regeneratorRuntime.awrap(page.evaluate(function () {
-            var titleList = Array.from(document.querySelectorAll(".s-link stretched-link")).map(function (link) {
-              return link.getAttribute("title");
-            });
-            var companyList = Array.from(document.querySelectorAll(".fc-black-700 fs-body1"));
-            return [titleList, companyList];
-          }));
+          return regeneratorRuntime.awrap(page.click(".js-search-btn"));
 
         case 23:
-          list = _context2.sent;
-          console.log(list); // close browser, return values
+          _context2.next = 25;
+          return regeneratorRuntime.awrap(page.waitFor(2000));
 
+        case 25:
           _context2.next = 27;
-          return regeneratorRuntime.awrap(browser.close());
+          return regeneratorRuntime.awrap(page.evaluate(function () {
+            var titleList = Array.from(document.querySelectorAll(".fc-black-800 a")).map(function (link) {
+              return link.getAttribute("title");
+            });
+            var companyList = Array.from(document.querySelectorAll(".fc-black-700 span")).map(function (item) {
+              return item.innerText.trim();
+            });
+            var imagesList = Array.from(document.querySelectorAll(".grid img")).map(function (item) {
+              return item.getAttribute("src");
+            });
+            return [titleList, companyList, imagesList];
+          }));
 
         case 27:
+          list = _context2.sent;
+          console.log(page.url());
+          stackoverflowPageUrl = page.url(); // close browser, return values
+
+          _context2.next = 32;
+          return regeneratorRuntime.awrap(browser.close());
+
+        case 32:
+          stackoverflowResult = [];
+          list[0].forEach(function (key, i) {
+            var obj = {};
+            obj.job = list[0][i];
+            obj.company = list[1][i];
+            obj.imageSrc = list[2][i];
+            stackoverflowResult.push(obj);
+          });
+          console.log(stackoverflowResult, "length: ".concat(stackoverflowResult.length));
+          return _context2.abrupt("return", {
+            stackoverflowPageUrl: stackoverflowPageUrl,
+            stackoverflowResult: stackoverflowResult
+          });
+
+        case 36:
         case "end":
           return _context2.stop();
       }
