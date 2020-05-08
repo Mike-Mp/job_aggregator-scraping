@@ -3,11 +3,13 @@ include ./mixins/_indeedCard
 include ./mixins/_stackCard
 block content
   a(href="/") Index
-  div(class="indeed")
-    if indeedResult.length !== 0
-      each indeedInfo in indeedResult
-        +indeedCard(indeedInfo)
-  div(class="stackoverflow")
-    if stackoverflowResult.length !== 0
+  if stackoverflowResult.length !== 0
+    div(class="stackoverflow")
       each stackInfo in stackoverflowResult
         +stackCard(stackInfo)
+  if indeedResult.length !== 0
+    div(class="indeed")
+      each indeedInfo in indeedResult
+        +indeedCard(indeedInfo)
+
+  
