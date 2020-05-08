@@ -4,7 +4,7 @@ exports.indeedScraper = async (jobTitle, location) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.goto("https://www.indeed.com");
+  await page.goto("http://www.indeed.com");
 
   await page.waitForSelector("#text-input-what");
   await page.waitForSelector("#text-input-where");
@@ -30,7 +30,7 @@ exports.indeedScraper = async (jobTitle, location) => {
     return [titlesList, companiesList];
   });
 
-  const pageUrl = page.url();
+  const indeedPageUrl = page.url();
 
   // close browser, return arrays / objects ?
   browser.close();
@@ -44,7 +44,7 @@ exports.indeedScraper = async (jobTitle, location) => {
     indeedResult.push(obj);
   });
 
-  return { pageUrl, indeedResult };
+  return { indeedPageUrl, indeedResult };
 };
 
 exports.stackoverflowScraper = async (jobTitle, location) => {

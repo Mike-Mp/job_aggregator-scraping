@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/results", async (req, res) => {
-  const { indeedPageUrl, indeedResult } = await scraper.indeedScraper(
+  let { indeedPageUrl, indeedResult } = await scraper.indeedScraper(
     req.query.jobTitle,
     req.query.location
   );
