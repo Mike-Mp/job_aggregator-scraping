@@ -3,7 +3,7 @@
 var puppeteer = require("puppeteer");
 
 exports.indeedScraper = function _callee(jobTitle, location) {
-  var browser, page, list, result;
+  var browser, page, list, pageUrl, result;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -67,15 +67,22 @@ exports.indeedScraper = function _callee(jobTitle, location) {
 
         case 26:
           list = _context.sent;
-          // close browser, return arrays / objects ?
-          browser.close();
-          result = {};
-          list[0].forEach(function (key, index) {
-            return result[key] = list[1][index];
-          });
-          return _context.abrupt("return", result);
+          pageUrl = page.url(); // close browser, return arrays / objects ?
 
-        case 31:
+          browser.close();
+          result = [];
+          list[0].forEach(function (key, index) {
+            var obj = {};
+            obj.job = list[0][index];
+            obj.company = list[1][index];
+            result.push(obj);
+          });
+          return _context.abrupt("return", {
+            pageUrl: pageUrl,
+            result: result
+          });
+
+        case 32:
         case "end":
           return _context.stop();
       }

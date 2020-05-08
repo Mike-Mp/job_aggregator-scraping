@@ -30,14 +30,21 @@ exports.indeedScraper = async (jobTitle, location) => {
     return [titlesList, companiesList];
   });
 
+  const pageUrl = page.url();
+
   // close browser, return arrays / objects ?
   browser.close();
 
-  const result = {};
+  const result = [];
 
-  list[0].forEach((key, index) => (result[key] = list[1][index]));
+  list[0].forEach((key, index) => {
+    const obj = {};
+    obj.job = list[0][index];
+    obj.company = list[1][index];
+    result.push(obj);
+  });
 
-  return result;
+  return { pageUrl, result };
 };
 
 // exports.stackoverflowScraper = async (jobTitle, location) => {};

@@ -10,7 +10,8 @@ router.get("/", function (req, res) {
   });
 });
 router.get("/results", function _callee(req, res) {
-  var indeedList;
+  var _ref, pageUrl, result;
+
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -19,13 +20,15 @@ router.get("/results", function _callee(req, res) {
           return regeneratorRuntime.awrap(scraper.indeedScraper(req.query.jobTitle, req.query.location));
 
         case 2:
-          indeedList = _context.sent;
-          console.log("indeedList", indeedList);
+          _ref = _context.sent;
+          pageUrl = _ref.pageUrl;
+          result = _ref.result;
+          console.log("result", result, "pageUrl", pageUrl);
           res.render("results", {
             title: "Results for: (interpolate query string here)"
           });
 
-        case 5:
+        case 7:
         case "end":
           return _context.stop();
       }
