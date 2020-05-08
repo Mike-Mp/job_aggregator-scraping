@@ -32,7 +32,7 @@ router.get("/results", function _callee(req, res) {
           stackoverflowResult = _ref2.stackoverflowResult;
           console.log("result", indeedResult, "pageUrl", indeedPageUrl);
           res.render("results", {
-            title: "Results for: ".concat(req.query.jobTitle, " in ").concat(req.query.location),
+            title: "".concat(req.query.jobTitle, " in ").concat(req.query.location),
             indeedResult: indeedResult,
             indeedPageUrl: indeedPageUrl,
             stackoverflowPageUrl: stackoverflowPageUrl,

@@ -6,18 +6,17 @@ var app = express();
 
 var path = require("path");
 
-var routes = require("./controller/routes");
+var routes = require("./controller/routes"); // const session = require("express-session");
+// view engine
 
-var session = require("express-session"); // req.body
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug"); // req.body
 
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
-})); // view engine
-// app.set("views", path.join(__dirname, "views"));
-
-app.set("view engine", "pug"); // static files
+})); // static files
 
 app.use(express["static"](path.join(__dirname, "public"))); // sessions
 // app.use(
@@ -28,6 +27,7 @@ app.use(express["static"](path.join(__dirname, "public"))); // sessions
 //     saveUninitialized: false,
 //   })
 // );
+// flash messages
 // routes
 
 app.use("/", routes); // error handling

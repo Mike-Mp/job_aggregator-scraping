@@ -22,7 +22,7 @@ router.get("/results", async (req, res) => {
   console.log("result", indeedResult, "pageUrl", indeedPageUrl);
 
   res.render("results", {
-    title: `Results for: ${req.query.jobTitle} in ${req.query.location}`,
+    title: `${req.query.jobTitle} in ${req.query.location}`,
     indeedResult,
     indeedPageUrl,
     stackoverflowPageUrl,

@@ -1,6 +1,9 @@
-extends layout
-include ./mixins/_indeedCard
-include ./mixins/_stackCard
+extends layout.pug
+
+include mixins/_indeedCard.pug
+
+include mixins/_stackCard.pug
+
 block content
   a(href="/") Index
   if stackoverflowResult.length !== 0
@@ -9,6 +12,7 @@ block content
         +stackCard(stackInfo)
   if indeedResult.length !== 0
     div(class="indeed")
+      h4= indeedPageUrl
       each indeedInfo in indeedResult
         +indeedCard(indeedInfo)
 
