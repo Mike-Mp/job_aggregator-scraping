@@ -6,15 +6,27 @@ router.get("/", (req, res) => {
 });
 
 router.get("/results", async (req, res) => {
-  const { pageUrl, result } = await scraper.indeedScraper(
+  const { indeedPageUrl, indeedResult } = await scraper.indeedScraper(
     req.query.jobTitle,
     req.query.location
   );
 
-  console.log("result", result, "pageUrl", pageUrl);
+  const {
+    stackoverflowPageUrl,
+    stackoverflowResult,
+  } = await scraper.stackoverflowScraper(
+    req.query.jobTitle,
+    req.query.location
+  );
+
+  console.log("result", indeedResult, "pageUrl", indeedPageUrl);
 
   res.render("results", {
-    title: "Results for: (interpolate query string here)",
+    title: `Results for: ${req.query.jobTitle} in ${req.query.location}`,
+    indeedResult,
+    indeedPageUrl,
+    stackoverflowPageUrl,
+    stackoverflowResult,
   });
 });
 

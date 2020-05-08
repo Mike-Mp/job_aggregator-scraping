@@ -35,7 +35,7 @@ exports.indeedScraper = async (jobTitle, location) => {
   // close browser, return arrays / objects ?
   browser.close();
 
-  const result = [];
+  const indeedResult = [];
 
   list[0].forEach((key, index) => {
     const obj = {};
@@ -44,7 +44,40 @@ exports.indeedScraper = async (jobTitle, location) => {
     result.push(obj);
   });
 
-  return { pageUrl, result };
+  return { pageUrl, indeedResult };
 };
 
-// exports.stackoverflowScraper = async (jobTitle, location) => {};
+exports.stackoverflowScraper = async (jobTitle, location) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  page.goto("https://stackoverflow.com/jobs");
+
+  await page.waitForSelector("#q");
+  await page.waitForSelector("#l");
+
+  await page.focus("#q");
+  await page.keyboard.type(jobTitle);
+
+  await page.focus("#l");
+  await page.keyboard.type(location);
+
+  await page.click(".s-btn s-btn__md");
+
+  let list = await page.evaluate(() => {
+    let titleList = Array.from(
+      document.querySelectorAll(".s-link stretched-link")
+    ).map((link) => link.getAttribute("title"));
+    let companyList = Array.from(
+      document.querySelectorAll(".fc-black-700 fs-body1")
+    );
+
+    return [titleList, companyList];
+  });
+
+  console.log(list);
+
+  // close browser, return values
+
+  await browser.close();
+};
