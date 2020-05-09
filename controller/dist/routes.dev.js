@@ -10,7 +10,7 @@ router.get("/", function (req, res) {
   });
 });
 router.get("/results", function _callee(req, res) {
-  var _ref, indeedPageUrl, indeedResult, _ref2, stackoverflowPageUrl, stackoverflowResult;
+  var _ref, indeedPageUrl, indeedResult, _ref2, stackoverflowResult;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -28,18 +28,16 @@ router.get("/results", function _callee(req, res) {
 
         case 7:
           _ref2 = _context.sent;
-          stackoverflowPageUrl = _ref2.stackoverflowPageUrl;
           stackoverflowResult = _ref2.stackoverflowResult;
           console.log("result", indeedResult, "pageUrl", indeedPageUrl);
           res.render("results", {
             title: "".concat(req.query.jobTitle, " in ").concat(req.query.location),
             indeedResult: indeedResult,
             indeedPageUrl: indeedPageUrl,
-            stackoverflowPageUrl: stackoverflowPageUrl,
             stackoverflowResult: stackoverflowResult
           });
 
-        case 12:
+        case 11:
         case "end":
           return _context.stop();
       }

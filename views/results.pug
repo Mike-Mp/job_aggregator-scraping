@@ -6,12 +6,11 @@ include mixins/_stackCard.pug
 
 block content
   a(href="/") Index
-  if stackoverflowResult.length !== 0
-    div(class="stackoverflow")
+  div(class="container")
+    if stackoverflowResult.length !== 0
       each stackInfo in stackoverflowResult
         +stackCard(stackInfo)
-  if indeedResult.length !== 0
-    div(class="indeed")
+    if indeedResult.length !== 0
       h4= indeedPageUrl
       each indeedInfo in indeedResult
         +indeedCard(indeedInfo)

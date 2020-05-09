@@ -11,10 +11,7 @@ router.get("/results", async (req, res) => {
     req.query.location
   );
 
-  const {
-    stackoverflowPageUrl,
-    stackoverflowResult,
-  } = await scraper.stackoverflowScraper(
+  const { stackoverflowResult } = await scraper.stackoverflowScraper(
     req.query.jobTitle,
     req.query.location
   );
@@ -25,7 +22,6 @@ router.get("/results", async (req, res) => {
     title: `${req.query.jobTitle} in ${req.query.location}`,
     indeedResult,
     indeedPageUrl,
-    stackoverflowPageUrl,
     stackoverflowResult,
   });
 });

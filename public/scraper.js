@@ -17,7 +17,7 @@ exports.indeedScraper = async (jobTitle, location) => {
 
   await page.click(".icl-Button");
 
-  await page.waitFor(2000);
+  await page.waitFor(1000);
 
   let list = await page.evaluate(() => {
     let titlesList = Array.from(
@@ -34,6 +34,10 @@ exports.indeedScraper = async (jobTitle, location) => {
 
   // close browser, return arrays / objects ?
   browser.close();
+  console.log(list[0].length);
+  if (list[0].length === 0) {
+    return { indeedPageUrl: [], indeedResult: [] };
+  }
 
   const indeedResult = [];
 
@@ -51,8 +55,6 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  console.log(jobTitle, location);
-
   await page.goto("https://stackoverflow.com/jobs");
 
   await page.waitForSelector("#q");
@@ -66,7 +68,7 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
 
   await page.click(".js-search-btn");
 
-  await page.waitFor(2000);
+  await page.waitFor(1000);
 
   let list = await page.evaluate(() => {
     let titleList = Array.from(
@@ -84,10 +86,6 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
     return [titleList, companyList, imagesList, hrefList];
   });
 
-  console.log(page.url());
-
-  const stackoverflowPageUrl = page.url();
-
   // close browser, return values
 
   await browser.close();
@@ -103,7 +101,5 @@ exports.stackoverflowScraper = async (jobTitle, location) => {
     stackoverflowResult.push(obj);
   });
 
-  console.log(stackoverflowResult, `length: ${stackoverflowResult.length}`);
-
-  return { stackoverflowPageUrl, stackoverflowResult };
+  return { stackoverflowResult };
 };

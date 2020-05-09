@@ -51,7 +51,7 @@ exports.indeedScraper = function _callee(jobTitle, location) {
 
         case 22:
           _context.next = 24;
-          return regeneratorRuntime.awrap(page.waitFor(2000));
+          return regeneratorRuntime.awrap(page.waitFor(1000));
 
         case 24:
           _context.next = 26;
@@ -70,6 +70,19 @@ exports.indeedScraper = function _callee(jobTitle, location) {
           indeedPageUrl = page.url(); // close browser, return arrays / objects ?
 
           browser.close();
+          console.log(list[0].length);
+
+          if (!(list[0].length === 0)) {
+            _context.next = 32;
+            break;
+          }
+
+          return _context.abrupt("return", {
+            indeedPageUrl: [],
+            indeedResult: []
+          });
+
+        case 32:
           indeedResult = [];
           list[0].forEach(function (key, index) {
             var obj = {};
@@ -82,7 +95,7 @@ exports.indeedScraper = function _callee(jobTitle, location) {
             indeedResult: indeedResult
           });
 
-        case 32:
+        case 35:
         case "end":
           return _context.stop();
       }
@@ -91,7 +104,7 @@ exports.indeedScraper = function _callee(jobTitle, location) {
 };
 
 exports.stackoverflowScraper = function _callee2(jobTitle, location) {
-  var browser, page, list, stackoverflowPageUrl, stackoverflowResult;
+  var browser, page, list, stackoverflowResult;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -106,44 +119,43 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
 
         case 5:
           page = _context2.sent;
-          console.log(jobTitle, location);
-          _context2.next = 9;
+          _context2.next = 8;
           return regeneratorRuntime.awrap(page["goto"]("https://stackoverflow.com/jobs"));
 
-        case 9:
-          _context2.next = 11;
+        case 8:
+          _context2.next = 10;
           return regeneratorRuntime.awrap(page.waitForSelector("#q"));
 
-        case 11:
-          _context2.next = 13;
+        case 10:
+          _context2.next = 12;
           return regeneratorRuntime.awrap(page.waitForSelector("#l"));
 
-        case 13:
-          _context2.next = 15;
+        case 12:
+          _context2.next = 14;
           return regeneratorRuntime.awrap(page.focus("#q"));
 
-        case 15:
-          _context2.next = 17;
+        case 14:
+          _context2.next = 16;
           return regeneratorRuntime.awrap(page.keyboard.type(jobTitle));
 
-        case 17:
-          _context2.next = 19;
+        case 16:
+          _context2.next = 18;
           return regeneratorRuntime.awrap(page.focus("#l"));
 
-        case 19:
-          _context2.next = 21;
+        case 18:
+          _context2.next = 20;
           return regeneratorRuntime.awrap(page.keyboard.type(location));
 
-        case 21:
-          _context2.next = 23;
+        case 20:
+          _context2.next = 22;
           return regeneratorRuntime.awrap(page.click(".js-search-btn"));
 
-        case 23:
-          _context2.next = 25;
-          return regeneratorRuntime.awrap(page.waitFor(2000));
+        case 22:
+          _context2.next = 24;
+          return regeneratorRuntime.awrap(page.waitFor(1000));
 
-        case 25:
-          _context2.next = 27;
+        case 24:
+          _context2.next = 26;
           return regeneratorRuntime.awrap(page.evaluate(function () {
             var titleList = Array.from(document.querySelectorAll(".fc-black-800 a")).map(function (link) {
               return link.getAttribute("title");
@@ -160,15 +172,12 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
             return [titleList, companyList, imagesList, hrefList];
           }));
 
-        case 27:
+        case 26:
           list = _context2.sent;
-          console.log(page.url());
-          stackoverflowPageUrl = page.url(); // close browser, return values
-
-          _context2.next = 32;
+          _context2.next = 29;
           return regeneratorRuntime.awrap(browser.close());
 
-        case 32:
+        case 29:
           stackoverflowResult = [];
           list[0].forEach(function (key, i) {
             var obj = {};
@@ -178,13 +187,11 @@ exports.stackoverflowScraper = function _callee2(jobTitle, location) {
             obj.jobHref = list[3][i];
             stackoverflowResult.push(obj);
           });
-          console.log(stackoverflowResult, "length: ".concat(stackoverflowResult.length));
           return _context2.abrupt("return", {
-            stackoverflowPageUrl: stackoverflowPageUrl,
             stackoverflowResult: stackoverflowResult
           });
 
-        case 36:
+        case 32:
         case "end":
           return _context2.stop();
       }
