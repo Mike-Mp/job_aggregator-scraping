@@ -1,10 +1,10 @@
 mixin stackCard(stackResult = {})
-  div(class="media is-primary")
+  div(class="media")
     div(class="media-left")
       div(class="image is-64x64")
         img(src= stackResult.imageSrc)
     div(class="media-content")
       div(class="content")
-        h2= stackResult.job
-        h3= stackResult.company
-        a(href=`https://www.stackoverflow.com${stackResult.jobHref}` target="_blank") Open page
+        h3= stackResult.job
+        h4= stackResult.company
+        a(href=`https://www.stackoverflow.com${stackResult.jobHref}` target="_blank" class="button is-link") Open page

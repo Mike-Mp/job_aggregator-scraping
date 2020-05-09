@@ -1,4 +1,7 @@
 mixin indeedCard(indeedResult = {})
-  div(class="tile")
-    h2= indeedResult.job
-    h3= indeedResult.company
+  div(class="media")
+    div(class="media-content")
+      div(class="content")
+        h3= indeedResult.job
+        h4= indeedResult.company
+        a(href= indeedPageUrl target="_blank" class="button is-link") Open page
