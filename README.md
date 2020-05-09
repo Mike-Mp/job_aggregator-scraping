@@ -4,8 +4,6 @@ Scrape different websites for job offers. App will return job titles and links t
 
 ## Tech used
 
----
-
 - express
 - puppeteer
 - pug
