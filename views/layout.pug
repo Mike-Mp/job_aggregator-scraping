@@ -8,5 +8,17 @@ html(lang="en")
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css")
     script(defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js")
   body
-    div(class="container is-widescreen")
+    nav(class="navbar is-info" role="navigation" aria-label="main navigation")
+      div(class="navbar-brand")
+        a(class="navbar-item" href="https://github.com/Mike-Mp/job_aggregator-scraping" target="_blank")
+          img(src="./images/GitHub_Logo_White.png")
+        a(role="button" class="navbar-burger burger" arial-label="menu" aria-expanded="false" target="navbarBelow")
+          span(aria-hidden="true")
+          span(aria-hidden="true")
+          span(aria-hidden="true")
+      div(class="navbar-menu" id="navbarBelow") 
+        div(class="navbar-start")
+          a(class="navbar-item" href="/") Home
+          a(class="navbar-item" href="/about") About
+    div(class="container is-widescreen is-light")
       block content

@@ -3,7 +3,7 @@ extends layout
 block content
   form(action="/results" method="GET")
     label(for="job") Job Title
-    input(type="text" id="job" name="jobTitle" required)
+    input(type="text" class="input is-info" id="job" name="jobTitle" required)
     label(for="location") Location
-    input(type="text" id="location" name="location" required)
-    button(type="submit") Submit
+    input(type="text" class="input is-info" id="location" name="location")
+    button(type="submit" class="button is-info") Submit
