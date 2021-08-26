@@ -9,7 +9,3 @@ Scrape different websites for job offers. App will return job titles and links t
 - pug
 - bulma css
 
-### todos
-
-- [ ] bulma css is like bootstrap. Not enough control. Change to tailwindcss.
-- [ ] turn project into a SPA with ReactJS
